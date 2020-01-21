@@ -11,16 +11,63 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using KeatonBlog.Models;
+using System.Net.Mail;
+using System.Web.Configuration;
+using System.Net;
 
 namespace KeatonBlog
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await SendMailAsync(message);
+            // return Task.FromResult(0);
         }
+
+        public async Task<bool> SendMailAsync(IdentityMessage message)
+        {
+            //private.config setup
+            var GmailUsername = WebConfigurationManager.AppSettings["username"];
+            var GmailPassword = WebConfigurationManager.AppSettings["password"];
+            var host = WebConfigurationManager.AppSettings["host"];
+            int port = Convert.ToInt32(WebConfigurationManager.AppSettings["port"]);
+
+            var from = new MailAddress(WebConfigurationManager.AppSettings["emailfrom"], "MyPortfolio");
+
+            // Email object setup
+            var email = new MailMessage(from, new MailAddress(message.Destination))
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true
+            };
+
+            //STMP object setup
+            using (var smtp = new SmtpClient()
+            {
+                Host = host,
+                Port = port,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(GmailUsername, GmailPassword)
+            })
+            {
+                try
+                {
+                    await smtp.SendMailAsync(email);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
+            };
+        }
+
     }
 
     public class SmsService : IIdentityMessageService
@@ -40,7 +87,7 @@ namespace KeatonBlog
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -81,7 +128,7 @@ namespace KeatonBlog
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;

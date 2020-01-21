@@ -4,66 +4,90 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
+    @if (User.IsInRole("Admin")) {
     @Html.ActionLink("Create New", "Create")
+         }
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Created)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Slug)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MediaURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Published)
-        </th>
-        <th></th>
-    </tr>
+<main>
+    <div class="container">
+        <div class="col-md-12  col-lg-12">
+            @foreach (var item in Model)
+            {
+                <div class="blog-post  blog-post--fullsize">
+                    <div class="blog-post__image">
+                        <a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Slug)
-        </td>
-        <td>
-            @Html.Raw(item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MediaURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Published)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { slug = item.Slug }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-    </tr>
-}
+                            @if (item.MediaURL != null)
+                            {
+                            <img class="img-responsive" src="@item.MediaURL" alt="">
+                            }
+                        </a>
+                    </div>
+                    <div class="blog-post__title">
+                        <h2><a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">@item.Title</a></h2>
+                    </div>
+                    <div class="blog-post__info">
+                        <span>By Kim Keaton</span>
+                        <span>@item.Created.ToString("MMMM dd, yyyy")</span>
+                        <span><a href="#">Placeholder for Comments for this blogpost</a></span>
+                    </div>
+                    <div class="blog-post__content">
+                        <p>@Html.Raw(@item.Body)</p>
+                    </div>
 
-</table>
+
+                    <div class="blog-post__footer">
+                        <a class="blog-post__footer-link" href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">Read more</a>
+                        <div class="blog-post__footer-social">
+                            <span>Share:</span>
+                            <div class="blog-post__footer-social-icons">
+                                <a href="#">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                                <a href="#">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use>
+                                    </svg>
+                                </a>
+                                <a href="#">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#google"></use>
+                                    </svg>
+                                </a>
+                                <a href="#">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pinterest"></use>
+                                    </svg>
+                                </a>
+                                <a href="#">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+            <nav class="blog-pagination">
+                <ul class="blog-pagination__items">
+                    <li class="blog-pagination__item  blog-pagination__item--active">
+                        <a>1</a>
+                    </li>
+                    <li class="blog-pagination__item">
+                        <a href="#">2</a>
+                    </li>
+                    <li class="blog-pagination__item">
+                        <a href="#">Next Page</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
