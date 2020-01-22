@@ -182,6 +182,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringUtilities.cs" />
+    <Compile Include="Migrations\202001221842371_0001.cs" />
+    <Compile Include="Migrations\202001221842371_0001.designer.cs">
+      <DependentUpon>202001221842371_0001.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BlogPost.cs" />
@@ -449,6 +453,7 @@
     <Content Include="Template\img\comment3.jpg" />
     <Content Include="Template\img\contact.jpg" />
     <Content Include="Template\img\favicon.png" />
+    <Content Include="Template\img\imageIcon.jpg" />
     <Content Include="Template\img\img1.jpg" />
     <Content Include="Template\img\img2.jpg" />
     <Content Include="Template\img\img3.jpg" />
@@ -462,6 +467,7 @@
     <Content Include="Template\img\instagram7.jpg" />
     <Content Include="Template\img\instagram8.jpg" />
     <Content Include="Template\img\instagram9.jpg" />
+    <Content Include="Template\img\MyImageIcon.jpg" />
     <Content Include="Template\img\sidebar1.jpg" />
     <Content Include="Template\img\sidebar2.jpg" />
     <Content Include="Template\img\sidebar3.jpg" />
@@ -514,11 +520,6 @@
     <Content Include="Views\BlogPosts\Details.cshtml" />
     <Content Include="Views\BlogPosts\Edit.cshtml" />
     <Content Include="Views\BlogPosts\Index.cshtml" />
-    <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Edit.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -532,9 +533,13 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -550,6 +555,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202001221842371_0001.resx">
+      <DependentUpon>202001221842371_0001.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

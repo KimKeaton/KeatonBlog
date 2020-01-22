@@ -7,9 +7,10 @@ using System.Web.Mvc;
 namespace KeatonBlog.Models
 {
     public class BlogPost
-    {       public BlogPost()
-                 { 
-            this.Comments = new HashSet<Comment>(); 
+    {
+        public BlogPost()
+        {
+            this.Comments = new HashSet<Comment>();
         }
         public int Id { get; set; }
         public DateTimeOffset Created { get; set; }
@@ -21,7 +22,6 @@ namespace KeatonBlog.Models
         public string MediaURL { get; set; }
         public bool Published { get; set; }
 
-    public virtual ICollection<Comment> Comment { get; set; }
-        public HashSet<Comment> Comments { get; private set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

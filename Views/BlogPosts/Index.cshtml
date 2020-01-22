@@ -14,63 +14,70 @@
         <div class="col-md-12  col-lg-12">
             @foreach (var item in Model)
             {
-                <div class="blog-post  blog-post--fullsize">
-                    <div class="blog-post__image">
-                        <a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">
+            <div class="blog-post  blog-post--fullsize">
+                <div class="blog-post__image">
+                    <a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">
 
-                            @if (item.MediaURL != null)
-                            {
+                        @if (item.MediaURL != null)
+                        {
                             <img class="img-responsive" src="@item.MediaURL" alt="">
-                            }
-                        </a>
-                    </div>
-                    <div class="blog-post__title">
-                        <h2><a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">@item.Title</a></h2>
-                    </div>
-                    <div class="blog-post__info">
-                        <span>By Kim Keaton</span>
-                        <span>@item.Created.ToString("MMMM dd, yyyy")</span>
-                        <span><a href="#">Placeholder for Comments for this blogpost</a></span>
-                    </div>
-                    <div class="blog-post__content">
-                        <p>@Html.Raw(@item.Body)</p>
-                    </div>
+                        }
+                    </a>
+                </div>
+                <div class="blog-post__title">
+                    <h2><a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">@item.Title</a></h2>
+                </div>
+                <div class="blog-post__info">
+                    <span>By Kim Keaton</span>
+                    <span>@item.Created.ToString("MMMM dd, yyyy")</span>
+                    <span><a href="#">Comments (@item.Comments.Count)</a></span>
+                </div>
+                <div class="blog-post__content">
+                    <p>@Html.Raw(@item.Body)</p>
+                </div>
+                <div class="blog-post__info">
+                    @if (@item.Updated != null)
+                    {
+                        <span>Last Updated @item.Updated.Value.ToString("MMMM dd, yyyy h:mm")</span>
+                        }
 
 
-                    <div class="blog-post__footer">
-                        <a class="blog-post__footer-link" href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">Read more</a>
-                        <div class="blog-post__footer-social">
-                            <span>Share:</span>
-                            <div class="blog-post__footer-social-icons">
-                                <a href="#">
-                                    <svg>
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#facebook"></use>
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg>
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use>
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg>
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#google"></use>
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg>
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pinterest"></use>
-                                    </svg>
-                                </a>
-                                <a href="#">
-                                    <svg>
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
-                                    </svg>
-                                </a>
-                            </div>
+                </div>
+
+                <div class="blog-post__footer">
+                    <a class="blog-post__footer-link" href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">Read more</a>
+                    <div class="blog-post__footer-social">
+                        <span>Share:</span>
+                        <div class="blog-post__footer-social-icons">
+                            <a href="#">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#facebook"></use>
+                                </svg>
+                            </a>
+                            <a href="#">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use>
+                                </svg>
+                            </a>
+                            <a href="#">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#google"></use>
+                                </svg>
+                            </a>
+                            <a href="#">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pinterest"></use>
+                                </svg>
+                            </a>
+                            <a href="#">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
             }
 
 

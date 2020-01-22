@@ -22,9 +22,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  color: #3f3f3f;
+  color: #1a0000;
   background-color: #f5f5f5;
 }
 blockquote {
@@ -65,16 +65,16 @@ blockquote::before {
   margin-top: 0;
 }
 .logo__link {
-  font-size: 48px;
-  color: #262626;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
+    font-size: 48px;
+    color: #1a0000;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
 }
 .logo__link:hover {
-  color: #262626;
+  color: #BE2525;
   text-decoration: none;
   opacity: 0.8;
 }
@@ -383,22 +383,22 @@ blockquote::before {
   margin-top: 0;
 }
 .blog-post__title a {
-  color: #262626;
+ 
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
 }
-.blog-post__title a:hover {
-  opacity: 0.8;
-}
+    .blog-post__title a:hover {
+        color: #1a0000;
+    }
 .blog-post__info {
   text-align: center;
 }
 .blog-post__info span {
   font-size: 12px;
-  color: #777777;
+  color: #3f3f3f;
 }
 .blog-post__info span::after {
   content: "/";
@@ -408,14 +408,14 @@ blockquote::before {
   content: "";
   margin-left: 0;
 }
-.blog-post__info a {
-  color: #777777;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-}
+    .blog-post__info a {
+        color: #3f3f3f;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+    }
 .blog-post__info a:hover {
   opacity: 0.8;
 }
@@ -428,7 +428,7 @@ blockquote::before {
 }
 .blog-post__content a {
   font-weight: bold;
-  color: #262626;
+  color: #3f3f3f;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -436,7 +436,7 @@ blockquote::before {
   -o-transition: all 0.2s ease-in-out;
 }
 .blog-post__content a:hover {
-  color: #262626;
+  color: #3f3f3f;
   text-decoration: none;
   opacity: 0.8;
 }
@@ -448,7 +448,7 @@ blockquote::before {
 }
 .blog-post__footer-link {
   font-size: 14px;
-  color: #262626;
+  color: #3f3f3f;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
@@ -457,7 +457,7 @@ blockquote::before {
   -o-transition: all 0.2s ease-in-out;
 }
 .blog-post__footer-link:hover {
-  color: #262626;
+  color: #3f3f3f;
   text-decoration: none;
   opacity: 0.8;
 }
@@ -540,23 +540,25 @@ blockquote::before {
   width: 100%;
 }
 .single-post__title {
-  padding-top: 30px;
-  text-align: center;
+    color: #BE2525;
+    padding-top: 30px;
+    text-align: center;
 }
-.single-post__title h2 {
-  margin-top: 0;
-}
+    .single-post__title h2 {
+        color: #BE2525;
+        margin-top: 0;
+    }
 .single-post__title a {
-  color: #262626;
+  color: #BE2525;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
 }
-.single-post__title a:hover {
-  opacity: 0.8;
-}
+    .single-post__title a:hover {
+      color:  #3f3f3f;
+    }
 .single-post__title--about,
 .single-post__title--contact,
 .single-post__title--404 {
@@ -576,7 +578,7 @@ blockquote::before {
 }
 .single-post__info span {
   font-size: 12px;
-  color: #777777;
+  color: #262626;
 }
 .single-post__info span::after {
   content: "/";
@@ -587,7 +589,7 @@ blockquote::before {
   margin-left: 0;
 }
 .single-post__info a {
-  color: #777777;
+  color: #262626;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;

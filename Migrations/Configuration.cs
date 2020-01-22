@@ -1,4 +1,4 @@
-namespace KeatonBlog.Migrations
+﻿namespace KeatonBlog.Migrations
 {
     using System;
     using Microsoft.AspNet.Identity;
@@ -44,12 +44,12 @@ namespace KeatonBlog.Migrations
 
             #region User Maintenance
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-            if (!context.Users.Any(u => u.Email == "kkeaton.livingood@gmail.com"))
+            if (!context.Users.Any(u => u.Email == "kk@gmail.com"))
             {
                 userManager.Create(new ApplicationUser
                 {
-                    UserName = "kkeaton.livingood@gmail.com",
-                    Email = "kkeaton.livingood@gmail.com",
+                    UserName = "kk@gmail.com",
+                    Email = "kk@gmail.com",
                     FirstName = "Kim",
                     LastName = "Keaton",
                     DisplayName = "Kim Keaton"
@@ -57,7 +57,7 @@ namespace KeatonBlog.Migrations
             }
 
 
-            var userId = userManager.FindByEmail("kkeaton.livingood@gmail.com").Id;
+            var userId = userManager.FindByEmail("kk@gmail.com").Id;
             userManager.AddToRole(userId, "Admin");
 
 
@@ -77,7 +77,7 @@ namespace KeatonBlog.Migrations
 
             userId = userManager.FindByEmail("moderator@coderfoundry.com").Id;
             userManager.AddToRole(userId, "Moderator");
- #endregion
+            #endregion
         }
     }
 }
