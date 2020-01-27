@@ -10,6 +10,7 @@ using KeatonBlog.Models;
 
 namespace KeatonBlog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

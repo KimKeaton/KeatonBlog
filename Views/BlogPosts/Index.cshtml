@@ -1,89 +1,83 @@
-﻿@model IEnumerable<KeatonBlog.Models.BlogPost>
+﻿
+@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<KeatonBlog.Models.BlogPost>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<p>
-    @if (User.IsInRole("Admin")) {
-    @Html.ActionLink("Create New", "Create")
-         }
-</p>
 <main>
     <div class="container">
+        <div>
+            @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+            {
+                <div class="controls controls-row search-row">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+                    }
+
+                    <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search">
+                    <button id="searchStr" name="searchStr" class="btn btn-default" type="submit" class="glyphicon-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            }
+        </div>
+
+
         <div class="col-md-12  col-lg-12">
             @foreach (var item in Model)
             {
-            <div class="blog-post  blog-post--fullsize">
-                <div class="blog-post__image">
-                    <a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">
+                <div class="blog-post  blog-post--fullsize">
+                    <div class="blog-post__image">
+                        <a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">
 
-                        @if (item.MediaURL != null)
+                            @if (item.MediaURL != null)
+                            {
+                                <img class="img-responsive" src="@item.MediaURL" alt="">
+                            }
+                        </a>
+                    </div>
+                    <div class="blog-post__title">
+                        <h2><a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">@item.Title</a></h2>
+                    </div>
+                    <div class="blog-post__info">
+                        <span>By Kim Keaton</span>
+                        <span>@item.Created.ToString("MMMM dd, yyyy")</span>
+                        <span><a href="#">Comments (@item.Comments.Count)</a></span>
+                    </div>
+                    <div class="blog-post__content">
+                        <p>@Html.Raw(@item.Body)</p>
+                    </div>
+                    <div class="blog-post__info">
+                        @if (@item.Updated != null)
                         {
-                            <img class="img-responsive" src="@item.MediaURL" alt="">
-                        }
-                    </a>
-                </div>
-                <div class="blog-post__title">
-                    <h2><a href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">@item.Title</a></h2>
-                </div>
-                <div class="blog-post__info">
-                    <span>By Kim Keaton</span>
-                    <span>@item.Created.ToString("MMMM dd, yyyy")</span>
-                    <span><a href="#">Comments (@item.Comments.Count)</a></span>
-                </div>
-                <div class="blog-post__content">
-                    <p>@Html.Raw(@item.Body)</p>
-                </div>
-                <div class="blog-post__info">
-                    @if (@item.Updated != null)
-                    {
-                        <span>Last Updated @item.Updated.Value.ToString("MMMM dd, yyyy h:mm")</span>
+                            <span>Last Updated @item.Updated.Value.ToString("MMMM dd, yyyy h:mm")</span>
                         }
 
 
-                </div>
+                    </div>
 
-                <div class="blog-post__footer">
-                    <a class="blog-post__footer-link" href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">Read more</a>
-                    <div class="blog-post__footer-social">
-                        <span>Share:</span>
-                        <div class="blog-post__footer-social-icons">
-                            <a href="#">
-                                <svg>
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#facebook"></use>
-                                </svg>
-                            </a>
-                            <a href="#">
-                                <svg>
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use>
-                                </svg>
-                            </a>
-                            <a href="#">
-                                <svg>
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#google"></use>
-                                </svg>
-                            </a>
-                            <a href="#">
-                                <svg>
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pinterest"></use>
-                                </svg>
-                            </a>
-                            <a href="#">
-                                <svg>
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
-                                </svg>
-                            </a>
-                        </div>
+                    <div class="blog-post__footer">
+                        <a class="blog-post__footer-link" href="@Url.Action("Details","BlogPosts", new { Slug = item.Slug })">Read more</a>
                     </div>
                 </div>
-            </div>
             }
 
 
             <nav class="blog-pagination">
+                <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
                 <ul class="blog-pagination__items">
-                    <li class="blog-pagination__item  blog-pagination__item--active">
+
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+
+                    @*<li class="blog-pagination__item  blog-pagination__item--active">
                         <a>1</a>
                     </li>
                     <li class="blog-pagination__item">
@@ -91,10 +85,13 @@
                     </li>
                     <li class="blog-pagination__item">
                         <a href="#">Next Page</a>
-                    </li>
+                    </li>*@
                 </ul>
             </nav>
         </div>
+
+
     </div>
 </main>
 
+,

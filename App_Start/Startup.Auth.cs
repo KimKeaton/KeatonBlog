@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Owin.Security.Providers.LinkedIn;
 using Owin;
 using KeatonBlog.Models;
 
@@ -54,15 +55,20 @@ namespace KeatonBlog
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "177461723467031",
+               appSecret: "735ca789e94f2a49b426e1ba56d84ba3");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1099324310588-hiucmatjlcpeg0alutei5tvbeuusmqf0.apps.googleusercontent.com",
+                ClientSecret = "ove5k95bggVq-pOkx2OZxqKu"
+            });
+
+            app.UseLinkedInAuthentication("7833upe5q9cdqm", "jeiqzxmRYc8CfWJr");
+      
+            
         }
     }
 }

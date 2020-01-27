@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <link href="~/Template/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Template/css/style.min.css" rel="stylesheet">
+    <link href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
     <svg style="display: none;">
@@ -81,30 +82,16 @@
     <header class="container  page-header">
         <div class="page-header__logo">
             <div class="logo">
-                <h1><a class="logo__link">Kimberly Keaton </a></h1>
-                <div class="logo__description">
-                    <h2>
-                        Personal Blog
-                    </h2>
-                    @Html.Partial("_LoginPartial")
-                </div>
-
+                <h1>Kimberly Keaton</h1>
+                <div class="logo__description">Personal Blog</div>
             </div>
         </div>
 
         <nav class="main-nav">
-            <ul class="main-nav__items">
-                <li class="main-nav__item"></li>
-
-            </ul>
-
-            <div class="main-nav__search">
-                <svg>
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ios-search"></use>
-                </svg>
-            </div>
+            @*<li class="main-nav__item"></li>*@
+            @Html.Partial("_LoginPartial")
         </nav>
-        @*  *@
+
 
         <div class="nav-toggle">
             <svg class="nav-toggle__icon">
@@ -113,16 +100,6 @@
         </div>
     </header>
 
-    <div class="search-popup">
-        <svg class="search-popup__close">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#btn-close"></use>
-        </svg>
-        <div class="container  search-popup__container">
-            <form action="index.html">
-                <input type="text" size="32" placeholder="Search">
-            </form>
-        </div>
-    </div>
     <div class="content-overlay"></div>
     <script src="~/Template/js/jquery-3.1.1.min.js"></script>
     <script src="~/Template/js/script.js"></script>

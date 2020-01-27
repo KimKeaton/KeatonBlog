@@ -46,6 +46,9 @@ blockquote::before {
   line-height: 1;
   color: #dcdcdc;
 }
+.btn {
+    background-color: #BE2525;
+}
 /*------------------------------------------------------------------
 [2. Header ] 
 */
@@ -91,7 +94,7 @@ blockquote::before {
   margin: 0;
   padding: 0;
   list-style: none;
-  text-align: center;
+  text-align: right;
 }
 .main-nav__items-submenu {
   margin: 0;

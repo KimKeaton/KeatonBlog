@@ -9,28 +9,73 @@ using System.Web;
 using System.Web.Mvc;
 using KeatonBlog.Helpers;
 using KeatonBlog.Models;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace KeatonBlog.Controllers
 {
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
-            return View(db.Posts.ToList());
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+            int pageSize = 3; //display three blog posts at a time on a page
+            int pageNumber = (page ?? 1);
+
+            return View(blogList.OrderByDescending(p => p.Created).ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: BlogPosts/Details/5
 
-        public ActionResult Details(string Slug)
+        // GET: BlogPosts/Index/Search
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if(searchStr != null)
+            {
+                result = db.Posts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                p.Body.Contains(searchStr) ||
+                p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                        c.Author.FirstName.Contains(searchStr) ||
+                        c.Author.LastName.Contains(searchStr) ||
+                        c.Author.DisplayName.Contains(searchStr) ||
+                        c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.Posts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
+        }
+
+
+            // GET: BlogPosts/Details/5
+
+            public ActionResult Details(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             BlogPost blogPost = db.Posts.FirstOrDefault(p => p.Slug == Slug);
+
+            ///// Example where you can put the where logic into the FirstOrDefault to streamline
+            ////string Title = db.Posts.FirstOrDefault(b => b.Title == "Hello").Title; 
+
+            //// implicit declaration 
+            //// var blogs = db.Posts.Where(b => b.Title. == "Hello").ToList();
+            //// EXPLICIT declaration
+            //List<BlogPost> blogList = db.Posts.Where(b => b.Title == "Hello").ToList();
+
+
+
+
             if (blogPost == null)
             {
                 return HttpNotFound();

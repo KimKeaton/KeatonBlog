@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace KeatonBlog.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -61,7 +62,7 @@ namespace KeatonBlog.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 var slug = db.Posts.FirstOrDefault(p => p.Id == blogPostID).Slug;
-                return RedirectToAction("Details", "BlogPosts", new {Slug = slug});
+                return RedirectToAction("Details", "BlogPosts", new { Slug = slug });
             }
 
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
@@ -70,8 +71,9 @@ namespace KeatonBlog.Controllers
         }
 
         // GET: Comments/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string slug)
         {
+            ViewBag.ReturnSlug = slug;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,23 +93,23 @@ namespace KeatonBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BlogPostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Id,Body,BlogPostId,AuthorID,UpdateReason")] Comment comment, string slug)
         {
             if (ModelState.IsValid)
             {
+             
+                ViewBag.ReturnSlug = slug;
                 comment.Updated = DateTimeOffset.Now;
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
-            ViewBag.BlogPostId = new SelectList(db.Posts, "Id", "Title", comment.BlogPostId);
-            return View(comment);
+                            }
+            return RedirectToAction("Details", "BlogPosts", new { Slug = slug });
         }
 
         // GET: Comments/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string slug)
         {
+            ViewBag.ReturnSlug = slug;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -123,12 +125,12 @@ namespace KeatonBlog.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string slug)
         {
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "BlogPosts", new { Slug = slug });
         }
 
         protected override void Dispose(bool disposing)

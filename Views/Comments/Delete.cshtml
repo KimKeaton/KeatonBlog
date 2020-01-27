@@ -3,20 +3,23 @@
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete this comment?</h3>
 <div>
-    <h4>Comment</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Author.FirstName)
+            @Html.DisplayNameFor(model => model.Created)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Author.FirstName)
+            @Model.Created.ToString("MMMM dd, yyyy h:mm")
+        </dd>
+
+        <dt>By</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.DisplayName)
         </dd>
 
         <dt>
@@ -35,38 +38,16 @@
             @Html.DisplayFor(model => model.Body)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdateReason)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdateReason)
-        </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+    @using (Html.BeginForm())
+    {
+        <div class="form-actions">
+            @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-default" />
         </div>
     }
+
+    @Html.ActionLink("Cancel", "Details", "BlogPosts", new { slug = ViewBag.ReturnSlug }, new { @class = "btn btn-default" })
 </div>

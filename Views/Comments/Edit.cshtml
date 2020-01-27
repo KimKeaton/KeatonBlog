@@ -4,57 +4,35 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Created)
+    @Html.HiddenFor(model => model.BlogPostId)
+    @Html.HiddenFor(model => model.AuthorId)
+
     <div class="form-horizontal">
-        <h4>Comment</h4>
+        <h4>Edit the Comment</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BlogPostId, "BlogPostId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Created</label>
+            <div class="col-md-10">@Model.Created.ToString("MMMM dd, yyyy h:mm")</div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">By</label>
             <div class="col-md-10">
-                @Html.DropDownList("BlogPostId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BlogPostId, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Author.DisplayName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AuthorId, "AuthorId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AuthorId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Updated, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Updated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Updated, "", new { @class = "text-danger" })
-            </div>
+            <label class="control-label col-md-2">Last Updated</label>
+            <div class="col-md-10">@Model.Updated</div>
         </div>
 
         <div class="form-group">
@@ -62,6 +40,15 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UpdateReason, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UpdateReason, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -74,7 +61,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cancel", "Details", "BlogPosts", new { slug = ViewBag.ReturnSlug }, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {
