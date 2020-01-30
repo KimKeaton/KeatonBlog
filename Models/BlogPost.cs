@@ -8,6 +8,9 @@ namespace KeatonBlog.Models
 {
     public class BlogPost
     {
+        /// <summary>
+        /// Constructor of class
+        /// </summary>
         public BlogPost()
         {
             this.Comments = new HashSet<Comment>();
